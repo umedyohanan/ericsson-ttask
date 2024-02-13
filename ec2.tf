@@ -1,12 +1,22 @@
+resource "tls_private_key" "example" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "generated_key" {
+  key_name   = var.key_name
+  public_key = tls_private_key.example.public_key_openssh
+}
+
 resource "aws_launch_template" "ecs_lt" {
   name_prefix   = "ecs-template"
   image_id      = "ami-062c116e449466e7f"
   instance_type = "t3.micro"
 
-  key_name               = "ec2ecsglog"
+  key_name      = aws_key_pair.generated_key.key_name
   vpc_security_group_ids = [aws_security_group.security_group.id]
   iam_instance_profile {
-    name = "ecsInstanceRole"
+    name = aws_iam_instance_profile.ecsInstanceRole.name
   }
 
   block_device_mappings {

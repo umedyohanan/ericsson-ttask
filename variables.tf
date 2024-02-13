@@ -13,3 +13,8 @@ variable "availability_zones" {
   type    = string
   default = "eu-central-1a"
 }
+
+variable "key_name" {
+  type = string
+  default = "ec2ecsg"
+}
