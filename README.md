@@ -18,3 +18,9 @@ Rocket Chat details:
 https://github.com/RocketChat/Docker.Official.Image
 https://hub.docker.com/_/rocket.chat
 
+To run deployment use the following commands:
+terraform plan
+terraform apply
+
+To remove deployment use:
+terraform destroy
